@@ -6,7 +6,7 @@
 /*   By: ademaill <ademaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 14:31:58 by ademaill          #+#    #+#             */
-/*   Updated: 2024/11/05 12:20:18 by ademaill         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:33:47 by ademaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,24 @@ int	fill_metadata(char *line, t_data *data)
 	remove_spaces(line);
 	if (ft_strncmp(line, "NO", 2) == 0)
 		data->mapfile->no_text_path = check_readable(line, data);
-	if (ft_strncmp(line, "SO", 2) == 0)
+	else if (ft_strncmp(line, "SO", 2) == 0)
 		data->mapfile->so_text_path = check_readable(line, data);
-	if (ft_strncmp(line, "WE", 2) == 0)
+	else if (ft_strncmp(line, "WE", 2) == 0)
 		data->mapfile->we_text_path = check_readable(line, data);
-	if (ft_strncmp(line, "EA", 2) == 0)
+	else if (ft_strncmp(line, "EA", 2) == 0)
 		data->mapfile->ea_text_path = check_readable(line, data);
-	if (ft_strncmp(line, "F", 1) == 0)
+	else if (ft_strncmp(line, "F", 1) == 0)
 	{
 		data->mapfile->f_color = str_to_rgb(line, data);
 		data->mapfile->param_count ++;
 	}
-	if (ft_strncmp(line, "C", 1) == 0)
+	else if (ft_strncmp(line, "C", 1) == 0)
 	{
 		data->mapfile->c_color = str_to_rgb(line, data);
 		data->mapfile->param_count ++;
 	}
+	else 
+		data->mapfile->param_count++;
 	return (1);
 }
 
@@ -80,7 +82,7 @@ int	process_metadata(t_data *data)
 			&& data->mapfile->ea_text_path
 			&& data->mapfile->we_text_path && data->mapfile->so_text_path
 			&& data->mapfile->no_text_path && data->mapfile->param_count == 6)
-			end_meta = true;
+				end_meta = true;
 	}
 	if (data->mapfile->i_mstart == 0)
 		return (-1);
